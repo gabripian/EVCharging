@@ -1,0 +1,47 @@
+To execute the project follows these steps:
+1) insert the project folder inside the examples folder of contiki-ng
+
+2)execute in a terminal: cd contiki-ng/examples/EVCharging/Application
+	2.1) execute: pip3 install requirements.txt
+
+3)execute in a terminal: cd contiki-ng/examples/rpl-border-router
+
+Execution in Cooja:
+
+1)in a terinal execute: cd contiki-ng/tools/cooja
+	1.2) ./gradlew run and choose the simulation EVChargingSimulation.csc
+
+2)set global variable SIMULATION to 1 in actuator.c and energy.c to print floats
+
+3)in the border-router terminal execute: make TARGET=cooja connect-router-cooja
+
+4)in the application terminal execute:  ./setup_and_run.sh to start the application
+
+5)start the simulation in Cooja
+
+
+Execution on dongles:
+1)set global variable SIMULATION to 1 in actuator.c and energy.c to print floats
+
+2)execute on border-router terminal:
+	2.1)make distclean
+	2.2)make TARGET=nrf52840 BOARD=dongle PORT=/dev/ttyACM0 border-router.dfu-upload
+	2.3)make TARGET=nrf52840 BOARD=dongle PORT=/dev/ttyACM0 connect-router
+
+3)execute: cd contiki-ng/examples/EVCharging/Sensor
+	3.1)make distclean
+	3.2)make TARGET=nrf52840 BOARD=dongle sensor.dfu-upload PORT=/dev/ttyACM1
+	3.3)make login TARGET=nrf52840 BOARD=dongle PORT=/dev/ttyACM1
+
+4)execute: cd contiki-ng/examples/EVCharging/Actuator
+	4.1)make distclean
+	4.2)make TARGET=nrf52840 BOARD=dongle actuator.dfu-upload PORT=/dev/ttyACM2
+	4.3)make login TARGET=nrf52840 BOARD=dongle PORT=/dev/ttyACM2
+
+5)in the application terminal execute:  ./setup_and_run.sh to start the application
+
+To access the database, open a terminal and execute: sudo mysql -u root -p and USE EVChargingDB;
+the password is root
+
+
+
